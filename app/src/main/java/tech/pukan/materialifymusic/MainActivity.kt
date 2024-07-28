@@ -57,14 +57,14 @@ class MainActivity : ComponentActivity() {
                         hasNews = false,
                     ),
                     BottomNavigationItem(
-                        title = "Chat",
+                        title = "Search",
                         selectedIcon = Icons.Filled.Search,
                         unselectedIcon = Icons.Outlined.Search,
                         hasNews = false,
                         badgeCount = 45
                     ),
                     BottomNavigationItem(
-                        title = "Settings",
+                        title = "Library",
                         selectedIcon = Icons.Filled.Menu,
                         unselectedIcon = Icons.Outlined.Menu,
                         hasNews = true,
@@ -76,60 +76,60 @@ class MainActivity : ComponentActivity() {
                 }
 
 
-                    Scaffold(
-                        bottomBar = {
-                            NavigationBar {
-                                items.forEachIndexed { index, item ->
-                                    NavigationBarItem(
-                                        selected = selectedItemIndex == index,
-                                        onClick = {
-                                            selectedItemIndex = index
-                                            // navController.navigate(item.title)
-                                        },
-                                        label = {
-                                            Text(text = item.title)
-                                        },
-                                        alwaysShowLabel = false,
-                                        icon = {
-                                            BadgedBox(
-                                                badge = {
-                                                    if(item.badgeCount != null) {
-                                                        Badge {
-                                                            Text(text = item.badgeCount.toString())
-                                                        }
-                                                    } else if(item.hasNews) {
-                                                        Badge()
+                Scaffold(
+                    bottomBar = {
+                        NavigationBar {
+                            items.forEachIndexed { index, item ->
+                                NavigationBarItem(
+                                    selected = selectedItemIndex == index,
+                                    onClick = {
+                                        selectedItemIndex = index
+                                        // navController.navigate(item.title)
+                                    },
+                                    label = {
+                                        Text(text = item.title)
+                                    },
+                                    alwaysShowLabel = true,
+                                    icon = {
+                                        BadgedBox(
+                                            badge = {
+                                                if (item.badgeCount != null) {
+                                                    Badge {
+                                                        Text(text = item.badgeCount.toString())
                                                     }
+                                                } else if (item.hasNews) {
+                                                    Badge()
                                                 }
-                                            ) {
-                                                Icon(
-                                                    imageVector = if (index == selectedItemIndex) {
-                                                        item.selectedIcon
-                                                    } else item.unselectedIcon,
-                                                    contentDescription = item.title
-                                                )
                                             }
+                                        ) {
+                                            Icon(
+                                                imageVector = if (index == selectedItemIndex) {
+                                                    item.selectedIcon
+                                                } else item.unselectedIcon,
+                                                contentDescription = item.title
+                                            )
                                         }
-                                    )
-                                }
+                                    }
+                                )
                             }
                         }
-                    ) { innerPadding ->
-                        items[selectedItemIndex].let { item ->
-                            Text(
-                                text = item.title,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(innerPadding)
-                            )
-                        }
                     }
-
-
+                ) { innerPadding ->
+                    items[selectedItemIndex].let { item ->
+                        Text(
+                            text = item.title,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(innerPadding)
+                        )
+                    }
                 }
+
+
             }
         }
     }
+}
 
 
 
